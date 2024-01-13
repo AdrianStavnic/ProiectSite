@@ -17,5 +17,7 @@ namespace ProiectSite.Data
         public DbSet<ProiectSite.Models.Vacation> Vacation { get; set; } = default!;
 
         public DbSet<ProiectSite.Models.Category>? Category { get; set; }
+
+        public DbSet<ProiectSite.Models.Reservation>? Reservation { get; set; }
     }
 }
