@@ -1,10 +1,34 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
+<link rel="stylesheet" href="~/css/site.css" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<h1>Welcome to Our Vacation Portal!</h1>
+
+<div>
+    <form method="get">
+        <button type="submit" name="categoryId" value="1" class="beach-button">Vacation at the Beach</button>
+        <button type="submit" name="categoryId" value="2" class="mountain-button">Vacation in the Mountains</button>
+        <button type="submit" name="categoryId" value="3" class="city-button">City Break</button>
+    </form>
+</div>
+
+
+<div>
+    <h2>Vacation Offers</h2>
+    <ul>
+        @foreach (var vacation in Model.Vacations)
+        {
+            <li>
+                <strong>@vacation.Name</strong>
+                <p>@vacation.Description</p>
+                <p>Price: @vacation.Price</p>
+                <p>Start Date: @vacation.StartDate.ToShortDateString()</p>
+                <p>End Date: @vacation.EndDate.ToShortDateString()</p>
+            </li>
+        }
+    </ul>
 </div>
