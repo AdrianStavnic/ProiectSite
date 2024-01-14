@@ -1,12 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProiectSite.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ProiectSiteContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProiectSiteContext") ?? throw new InvalidOperationException("Connection string 'ProiectSiteContext' not found.")));
+
+builder.Services.AddDbContext<IdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProiectSiteContext") ?? throw new InvalidOperationException("Connection string 'ProiectSiteContext' not found.")));
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+//   options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<IdentityContext>();
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<IdentityContext>();
 
 var app = builder.Build();
 
@@ -22,6 +33,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 

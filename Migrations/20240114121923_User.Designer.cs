@@ -12,8 +12,8 @@ using ProiectSite.Data;
 namespace ProiectSite.Migrations
 {
     [DbContext(typeof(ProiectSiteContext))]
-    [Migration("20240114114608_Users")]
-    partial class Users
+    [Migration("20240114121923_User")]
+    partial class User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,35 @@ namespace ProiectSite.Migrations
                     b.HasIndex("VacationId");
 
                     b.ToTable("Reservation");
+                });
+
+            modelBuilder.Entity("ProiectSite.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("ProiectSite.Models.Vacation", b =>

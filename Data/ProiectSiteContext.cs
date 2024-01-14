@@ -19,5 +19,7 @@ namespace ProiectSite.Data
         public DbSet<ProiectSite.Models.Category>? Category { get; set; }
 
         public DbSet<ProiectSite.Models.Reservation>? Reservation { get; set; }
+    
+        public DbSet<ProiectSite.Models.User>? User { get; set; }
     }
 }
