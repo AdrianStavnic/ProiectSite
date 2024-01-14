@@ -4,6 +4,11 @@ using ProiectSite.Data;
 using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+    });
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ProiectSiteContext>(options =>
@@ -17,7 +22,16 @@ builder.Services.AddDbContext<IdentityContext>(options =>
 //    .AddEntityFrameworkStores<IdentityContext>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()    
     .AddEntityFrameworkStores<IdentityContext>();
+
+builder.Services.AddRazorPages(options =>
+    {
+        options.Conventions.AuthorizeFolder("/Vacations", "AdminPolicy");
+        options.Conventions.AuthorizeFolder("/Categories", "AdminPolicy");
+        options.Conventions.AllowAnonymousToPage("/Index");
+        options.Conventions.AuthorizeFolder("/Reservations");
+    });  
 
 var app = builder.Build();
 
